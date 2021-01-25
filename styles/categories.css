@@ -712,6 +712,8 @@ section
 	padding-top: 94px;
 	padding-bottom: 98px;
 	background: #FFFFFF;
+	display: flex;
+	justify-content: space-around;
 }
 .current_page
 {
@@ -858,6 +860,8 @@ section
 {
 	width: calc(100% + 30px);
 	margin-left: -15px;
+	display: flex;
+	flex-wrap: wrap;
 }
 .product
 {
@@ -1042,11 +1046,7 @@ section
 
 .sidebar_left
 {
-	position: absolute;
-	top: 215px;
-	left: -310px;
-	width: 286px;
-	padding-bottom: 98px;
+	padding: 0 100px;
 }
 .sidebar_section
 {
@@ -1320,10 +1320,7 @@ section
 
 .sidebar_right
 {
-	position: absolute;
-	top: 308px;
-	right: 38px;
-	width: 285px;
+	padding: 0 100px;
 }
 .sidebar_promo_1
 {
