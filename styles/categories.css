@@ -946,6 +946,7 @@ section
 {
 	float: right;
 	transform: translateY(11px);
+	display: flex;
 }
 .product_option
 {
@@ -955,29 +956,33 @@ section
 }
 .product_buy
 {
-	display: inline-block;
 	background: #937c6f;
 	vertical-align: middle;
-	margin-right: 4px;
 	-webkit-transition: all 200ms ease;
 	-moz-transition: all 200ms ease;
 	-ms-transition: all 200ms ease;
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	width: auto;
+	color: white;
+	font-size: 16px;
+	
+	margin: 0 4px;
+	padding: 8px;
 }
 .product_buy img
 {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%, -50%);
-	-moz-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	-o-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-	width: 23px;
-	height: 23px;
+	margin-right: 5px;
 }
+
+.product_count {
+	margin-left: 4px;
+}
+
 .product_buy:hover
 {
 	background: #2f2f2f;

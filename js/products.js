@@ -36,6 +36,34 @@ const data = [
   },
 ]
 
+const cart = {}
+
+function addToCart(productId) {
+  const count = cart[productId]
+
+  if (count) {
+    cart[productId] = count + 1
+  } else {
+    cart[productId] = 1
+  }
+
+  render()
+}
+
+function removeFromCart(productId) {
+  const count = cart[productId]
+
+  if (count) {
+    if (count > 1) {
+      cart[productId] = count - 1
+    } else {
+      cart[productId] = undefined
+    }
+  }
+
+  render()
+}
+
 function createProductElement(product) {
   const { imgSrc, name, rating, price, id } = product
 
@@ -56,22 +84,39 @@ function createProductElement(product) {
         <div class="product_price">$${price}</div>
       </div>
       <div class="product_options">
+        <div class="product_fav product_option" onclick="removeFromCart('${id}')">-</div>
         <div class="product_buy product_option"><img src="images/shopping-bag-white.svg" alt=""></div>
-        <div class="product_fav product_option">+</div>
+        <div class="product_fav product_option" onclick="addToCart('${id}')">+</div>
       </div>
     </div>
   `
 
+  const count = cart[id]
+
+  if (count) {
+    const productBuyElement = div.querySelector('.product_buy')
+    const countElement = document.createElement('div')
+    countElement.className = 'product_count'
+    countElement.innerHTML = count
+    productBuyElement.appendChild(countElement)
+  }
+
   return div
 }
 
-function loadProducts() {
+function render() {
   const root = document.getElementById('root')
+
+  root.innerHTML = ''
 
   for (const product of data) {
     const div = createProductElement(product)
     root.appendChild(div)
   }
+}
+
+function loadProducts() {
+  render()
 }
 
 window.addEventListener('load', loadProducts)
