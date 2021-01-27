@@ -40,7 +40,7 @@
 				</div>
 				<div class="shopping">
 					<!-- Cart -->
-					<a href="#">
+					<a id="cart_link" href="#">
 						<div class="cart">
 							<img src="images/shopping-bag.svg" alt="">
 							<div class="cart_num_container">
@@ -431,6 +431,81 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			</div>
 		</div>
 	</footer>
+</div>
+
+<div class="cart_overlay cart_overlay_closed">
+	<div id="cart_close_area" class="cart_close_area"></div>
+	<div class="cart_modal">
+		<div class="row">
+			<div class="col">
+				<div class="cart_title">your shopping cart</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="cart_bar d-flex flex-row align-items-center justify-content-start">
+					<div class="cart_bar_title_name">Product</div>
+					<div class="cart_bar_title_content ml-auto">
+						<div class="cart_bar_title_content_inner d-flex flex-row align-items-center justify-content-end">
+							<div class="cart_bar_title_price">Price</div>
+							<div class="cart_bar_title_quantity">Quantity</div>
+							<div class="cart_bar_title_total">Total</div>
+							<div class="cart_bar_title_button"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="cart_products">
+					<ul id="cart_products_root"></ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="cart_control_bar d-flex flex-md-row flex-column align-items-start justify-content-start">
+					<button class="button_clear cart_button">clear cart</button>
+					<button class="button_update cart_button">update cart</button>
+					<button class="button_update cart_button_2 ml-md-auto">continue shopping</button>
+				</div>
+			</div>
+		</div>
+		<div class="row cart_extra">
+			<!-- Cart Coupon -->
+			<div class="col-lg-6">
+				<div class="cart_coupon">
+					<div class="cart_title">coupon code</div>
+					<form action="#" class="cart_coupon_form d-flex flex-row align-items-start justify-content-start" id="cart_coupon_form">
+						<input type="text" class="cart_coupon_input" placeholder="Coupon code" required="required">
+						<button class="button_clear cart_button_2">apply coupon</button>
+					</form>
+				</div>
+			</div>
+			<!-- Cart Total -->
+			<div class="col-lg-5 offset-lg-1">
+				<div class="cart_total">
+					<div class="cart_title">cart total</div>
+					<ul>
+						<li class="d-flex flex-row align-items-center justify-content-start">
+							<div class="cart_total_title">Subtotal</div>
+							<div id="cart_subtotal" class="cart_total_price ml-auto">$35.00</div>
+						</li>
+						<li class="d-flex flex-row align-items-center justify-content-start">
+							<div class="cart_total_title">Shipping</div>
+							<div id="cart_shipping" class="cart_total_price ml-auto">$5.00</div>
+						</li>
+						<li class="d-flex flex-row align-items-center justify-content-start">
+							<div class="cart_total_title">Total</div>
+							<div id="cart_total" class="cart_total_price ml-auto">$40.00</div>
+						</li>
+					</ul>
+					<button class="cart_total_button">proceed to checkout</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script src="js/jquery-3.2.1.min.js"></script>
