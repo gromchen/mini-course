@@ -1,41 +1,5 @@
-const data = [
-  {
-    imgSrc: 'images/product_1.jpg',
-    rating: 4,
-    name: `Woman's Long Dress`,
-    price: 45,
-    id: 'womans_long_dress'
-  },
-  {
-    imgSrc: 'images/product_2.jpg',
-    rating: 5,
-    name: `2 Piece Swimsuit`,
-    price: 35,
-    id: 'two_piece_swimsuit'
-  },
-  {
-    imgSrc: 'images/product_3.jpg',
-    rating: 3,
-    name: `Man Blue Jacket`,
-    price: 145,
-    id: 'man_blue_jacket'
-  },
-  {
-    imgSrc: 'images/product_4.jpg',
-    rating: 3,
-    name: `Man Blue Jacket`,
-    price: 145,
-    id: 'man_blue_jacket'
-  },
-  {
-    imgSrc: 'images/product_5.jpg',
-    rating: 3,
-    name: `Man Blue Jacket`,
-    price: 145,
-    id: 'man_blue_jacket'
-  },
-]
-
+let data
+let error
 const cart = {}
 
 function addToCart(productId) {
@@ -62,6 +26,17 @@ function removeFromCart(productId) {
   }
 
   render()
+}
+
+function createPlaceholderElement() {
+  const div = document.createElement('div')
+  div.className = 'placeholder'
+
+  div.innerHTML = `
+    <div class="loader">Loading...</div>
+  `
+
+  return div
 }
 
 function createProductElement(product) {
@@ -149,9 +124,18 @@ function render() {
   const root = document.getElementById('root')
   root.innerHTML = ''
 
-  for (const product of data) {
-    const div = createProductElement(product)
-    root.appendChild(div)
+  if (data && !error) {
+    for (const product of data) {
+      const div = createProductElement(product)
+      root.appendChild(div)
+    }
+  } else if (!data && !error) {
+    for (let index = 0; index < 6; index++) {
+      const placeholderElement = createPlaceholderElement()
+      root.appendChild(placeholderElement)
+    }
+  } else {
+    root.append(error)
   }
 
   const cartProductIds = Object.keys(cart)
@@ -193,8 +177,52 @@ function toggleCartModal(event) {
     .toggle('cart_overlay_closed')
 }
 
+function mapProducts(data) {
+  const { values: rows } = data
+
+  const headerKeys = rows.shift()
+
+  const products = rows.map(row => {
+    const product = {}
+
+    /** @todo use reduce */
+    row.forEach((cell, cellIndex) => {
+      const key = headerKeys[cellIndex]
+      product[key] = cell
+    })
+
+    return product
+  })
+
+  return products
+}
+
 function loadProducts() {
+  const sheetId = '1hVuXGn8oAkSNMLuMWD9y-seca8LCdgqzPWQDaQEtwgo'
+  const apiKey = 'AIzaSyAb4rbwxULcnCG4X1oadkgqvGftYeiD9LA'
+
   render()
+
+  fetch(
+    `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1?key=${apiKey}`
+  )
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+
+    return response
+  })
+  .then(response => response.json())
+  .then(responseData => {
+    data = mapProducts(responseData)
+  })
+  .catch(responseError => {
+    error = responseError
+  })
+  .finally(() => {
+    render()
+  })
 
   document
     .getElementById('cart_link')
