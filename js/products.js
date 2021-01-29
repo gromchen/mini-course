@@ -231,6 +231,57 @@ function loadProducts() {
   document
     .getElementById('cart_close_area')
     .addEventListener('click', toggleCartModal)
+
+  document
+    .forms.checkoutForm
+    .addEventListener('submit', placeOrder)
+}
+
+function placeOrder(event) {
+  event.preventDefault()
+
+  const { checkoutForm } = document.forms
+  const { nameInput, phoneInput } = checkoutForm
+
+  const productStrings = []
+  let subtotal = 0
+
+  for (const productId of Object.keys(cart)) {
+    const product = data.find(p => p.id === productId)
+    const quantity = cart[productId]
+
+    const { name, price } = product
+
+    const productSubtotal = price * quantity
+    subtotal = subtotal + productSubtotal
+
+    productStrings.push(`
+*${quantity}* x ${name}: $${productSubtotal}`)
+  }
+
+  const shipping = 5
+
+  const message = 
+`
+User: ${nameInput.value}, *${phoneInput.value}*
+Products: ${productStrings.join('')}
+Subtotal: $${subtotal}
+Shipping: $${shipping}
+Total: $${subtotal + shipping}
+`
+
+  const body = {
+    apiKey: 'secretKey',
+    message
+  }
+  
+  fetch('https://mini-course-shopbot-2.herokuapp.com/orders', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  })
 }
 
 window.addEventListener('load', loadProducts)

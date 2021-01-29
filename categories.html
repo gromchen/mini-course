@@ -501,7 +501,34 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 							<div id="cart_total" class="cart_total_price ml-auto">$40.00</div>
 						</li>
 					</ul>
-					<button class="cart_total_button">proceed to checkout</button>
+					
+					<form
+						class="checkout_form"
+						name="checkoutForm"
+					>
+						<input
+							name="nameInput"
+							type="text"
+							class="checkout_input"
+							placeholder="Name"
+							required="required"
+						>
+
+						<input
+							name="phoneInput"
+							type="text"
+							class="checkout_input"
+							placeholder="Phone No"
+							required="required"
+						>
+
+						<button
+							type="submit"
+							class="cart_total_button"
+						>
+							place order
+						</button>
+					</form>
 				</div>
 			</div>
 		</div>
